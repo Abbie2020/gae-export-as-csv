@@ -17,9 +17,8 @@ def exportToCsv(query, csvFileName, delimiter):
 
 		while areMoreRows:
 			if cursor is not None:
-				query.with_cursor(cursor)
-			items = query.fetch(rowsPerQuery)
-			cursor = query.cursor()
+				items, cursor, more = query.fetch_page(rowsPerQuery, start_cursor = cursor)
+			items, cursor, more = query.fetch_page(rowsPerQuery)
 
 			currentRows =0
 			for item in items:
